@@ -1,4 +1,7 @@
-<!--index.wxml-->
-<view class="container">
-  view.container
+<!-- index.wxml -->
+<view class="enter">
+  <view class="userinfo">
+    <button open-type="getUserInfo" bindgetuserinfo="onGetUserInfo" class="userinfo-avatar" style="background-image: url({{avatarUrl}})" size="default"></button>
+  </view>
+  <navigator url="/pages/weRouter/index" class="enter-go">卡夫卡之旅</navigator>
 </view>

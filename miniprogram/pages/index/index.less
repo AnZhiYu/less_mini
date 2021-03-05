@@ -4,9 +4,45 @@ page {
   flex-direction: column;
   justify-content: flex-start;
 }
-
-
-.container{
-  background-color: aqua;
+.enter {
   line-height: 30px;
+  text-align: center;
+
+  &-go{
+    position: absolute;
+    bottom: 350rpx;
+    width: 100%;
+    color: #333;
+  }
+}
+
+
+
+.userinfo{
+  width: 210rpx;
+  height: 210rpx;
+  border:  1rpx solid blanchedalmond;
+  border-radius: 50%;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  margin: auto;
+  left: 0;
+  &-avatar {
+    width: 200rpx;
+    height: 200rpx;
+    margin: 20rpx;
+    background-size: cover;
+    background-color: white;
+  }
+}
+
+.userinfo-avatar[size] {
+  width: 200rpx;
+}
+
+.userinfo-avatar:after {
+  border: none;
 }
