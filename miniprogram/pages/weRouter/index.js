@@ -8,6 +8,7 @@ Page({
     logged: false,
     takeSession: false,
     requestResult: "",
+    shareImgList: []
   },
 
   onLoad: function () {
@@ -34,6 +35,7 @@ Page({
         }
       },
     });
+    this.onQuery()
   },
 
   onGetUserInfo: function (e) {
@@ -66,10 +68,52 @@ Page({
       },
     });
   },
-
   // 上传图片
-  doUpload: function () {
+  uploadImg: function () {
+    const { userInfo } = this.data;
     // 选择图片
+    if (!userInfo.nickName) {
+      wx.getSetting({
+        success: (res) => {
+          if (res.authSetting["scope.userInfo"]) {
+            // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+            wx.getUserInfo({
+              success: (res) => {
+                this.setData({
+                  avatarUrl: res.userInfo.avatarUrl,
+                  userInfo: res.userInfo,
+                });
+              },
+            });
+          }
+        },
+      });
+    } else {
+      this.uploadImg();
+    }
+  },
+  // 上传图片
+  uploadImg: function () {
+    const { userInfo } = this.data;
+    let that = this;
+    // 选择图片
+    if (!userInfo.nickName) {
+      wx.getSetting({
+        success: (res) => {
+          if (res.authSetting["scope.userInfo"]) {
+            // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+            wx.getUserInfo({
+              success: (res) => {
+                this.setData({
+                  avatarUrl: res.userInfo.avatarUrl,
+                  userInfo: res.userInfo,
+                });
+              },
+            });
+          }
+        },
+      });
+    }
     wx.chooseImage({
       count: 1,
       sizeType: ["compressed"],
@@ -80,22 +124,24 @@ Page({
         });
 
         const filePath = res.tempFilePaths[0];
-
         // 上传图片
-        const cloudPath = `my-image${filePath.match(/\.[^.]+?$/)[0]}`;
+        const cloudPath = `${userInfo.nickName}${new Date().getTime()}_${
+          filePath.match(/\.[^.]+?$/)[0]
+        }`;
         wx.cloud.uploadFile({
           cloudPath,
           filePath,
           success: (res) => {
             console.log("[上传文件] 成功：", res);
-
             app.globalData.fileID = res.fileID;
             app.globalData.cloudPath = cloudPath;
             app.globalData.imagePath = filePath;
 
-            wx.navigateTo({
-              url: "../storageConsole/storageConsole",
-            });
+            console.log('app.globalData', app.globalData, that)
+            // wx.navigateTo({
+            //   url: "../storageConsole/storageConsole",
+            // });
+            that.onAddImg();
           },
           fail: (e) => {
             console.error("[上传文件] 失败：", e);
@@ -114,6 +160,30 @@ Page({
       },
     });
   },
+
+  onQuery: function() {
+    const db = wx.cloud.database()
+    // 查询当前用户所有的 counters
+    db.collection('shareImg').where({
+    }).get({
+      success: res => {
+        console.log('resimg', res)
+        this.setData({
+          queryResult: JSON.stringify(res.data, null, 2),
+          shareImgList: res.data,
+        })
+        console.log('[数据库] [查询记录] 成功: ', res)
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '查询记录失败'
+        })
+        console.error('[数据库] [查询记录] 失败：', err)
+      }
+    })
+  },
+
   onShareAppMessage(options) {
     console.log("option", options);
     return {
@@ -128,5 +198,34 @@ Page({
         console.log("转发失败:" + JSON.stringify(res));
       },
     };
+  },
+
+  onAddImg: function () {
+    console.log("[数据库] [新增记录] 成功，记录 _id: ");
+    const db = wx.cloud.database();
+    db.collection("shareImg").add({
+      data: {
+        ...app.globalData,
+        type: 'share'
+      },
+      success: (res) => {
+        // 在返回结果中会包含新创建的记录的 _id
+        this.setData({
+          counterId: res._id,
+          count: 1,
+        });
+        wx.showToast({
+          title: "分享图片成功",
+        });
+        console.log("[数据库] [新增记录] 成功，记录 _id: ", res._id);
+      },
+      fail: (err) => {
+        wx.showToast({
+          icon: "none",
+          title: "分享图片失败",
+        });
+        console.error("[数据库] [新增记录] 失败：", err);
+      },
+    });
   },
 });

@@ -8,11 +8,20 @@ page {
   line-height: 30px;
   text-align: center;
 }
-.enter-go {
+.enter-btn {
   position: absolute;
-  bottom: 350rpx;
   width: 100%;
-  color: #333;
+  height: 100rpx;
+  bottom: 350rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.enter-go {
+  width: 50%;
+  color: #666;
+  border: 1px solid #ccc;
+  border-radius: 8rpx;
 }
 .userinfo {
   width: 210rpx;

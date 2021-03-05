@@ -1,6 +1,5 @@
-<!--index.wxml-->
+<!-- index.wxml -->
 <view class="container">
-
   <!-- 用户 openid -->
   <!-- <view class="userinfo">
     <button 
@@ -11,49 +10,54 @@
       size="default"
     ></button>
     <view class="userinfo-nickname-wrapper">
-      <button class="userinfo-nickname" bindtap="onGetOpenid">点击获取</button>
+      
     </view>
   </view> -->
-
-  <image mode="widthFix" src="cloud://less-cloud-6aftw.6c65-less-cloud-6aftw-1300147528/my-image.JPG"></image>
   <!-- 上传图片 -->
+  <view class="page-section page-section-spacing swiper">
+    <swiper class="swiper" indicator-dots autoplay circular>
+      <swiper-item class="swiper-item" wx:for="{{shareImgList}}" wx:for-item="item" wx:key="{{item.imagePath}}">
+        <image  class="swiper-item-img"  mode="widthFix" src="{{item.imagePath}}" />
+      </swiper-item>
+    </swiper>
+  </view>
   <view class="uploader">
-    <view class="uploader-text" bindtap="doUpload">
-      <text>图片分享</text>
+    <view class="uploader-text">
+      <text wx:if="{{userInfo.nickName}}" bindtap="uploadImg">图片分享</text>
+      <button wx:else class="uploader-btn" bindtap="onGetUserInfo">图片分享</button>
     </view>
     <view class="uploader-container" wx:if="{{imgUrl}}">
       <image class="uploader-image" src="{{imgUrl}}" mode="aspectFit" bindtap="previewImg"></image>
     </view>
   </view>
-
-
   <!-- 操作数据库 -->
   <!-- <view class="uploader">
     <navigator url="../databaseGuide/databaseGuide" open-type="navigate" class="uploader-text">
       <text>前端操作数据库</text>
     </navigator>
   </view> -->
-
   <!-- 即时通信 -->
   <view class="uploader">
     <navigator url="../im/im" open-type="navigate" class="uploader-text">
       <text>解忧树洞</text>
     </navigator>
   </view>
-
   <!-- 新建云函数 -->
   <!-- <view class="uploader">
     <navigator url="../addFunction/addFunction" open-type="navigate" class="uploader-text">
       <text>快速新建云函数</text>
     </navigator>
   </view> -->
-
   <!-- 云调用 -->
   <view class="uploader">
     <!-- <navigator url="../openapi/openapi" open-type="navigate" class="uploader-text">
       <text>云调用</text>
     </navigator> -->
-    <view class="text">你要搞清楚自己人生的剧本——不是你父母的续集，不是你子女的前传，更不是你朋友的外篇。对待生命你不妨大胆冒险一点， 因为好歹你要失去它。如果这世界上真有奇迹，那只是努力的另一个名字。生命中最难的阶段 不是没有 人懂你，而是 你不懂你自己。 </view>
-  <view  class="text">——尼采</view>
+    <view class="text">
+      你要搞清楚自己人生的剧本——不是你父母的续集，不是你子女的前传，更不是你朋友的外篇。对待生命你不妨大胆冒险一点， 因为好歹你要失去它。如果这世界上真有奇迹，那只是努力的另一个名字。生命中最难的阶段 不是没有 人懂你，而是 你不懂你自己。
+    </view>
+    <view class="text">——尼采</view>
   </view>
+  <image mode="aspectFit" src="https://6c65-less-cloud-6aftw-1300147528.tcb.qcloud.la/my-image.JPG?sign=435abe401834d30bc2205c2cc1608f4f&t=1614953328"></image>
+
 </view>
