@@ -17,7 +17,7 @@
   <view class="page-section page-section-spacing swiper">
     <swiper class="swiper" indicator-dots autoplay circular>
       <swiper-item class="swiper-item" wx:for="{{shareImgList}}" wx:for-item="item" wx:key="{{item.imagePath}}">
-        <image  class="swiper-item-img"  mode="widthFix" src="{{item.imagePath}}" />
+        <image  class="swiper-item-img"  mode="aspectFill" src="{{item.fileID}}" />
       </swiper-item>
     </swiper>
   </view>
@@ -58,6 +58,5 @@
     </view>
     <view class="text">——尼采</view>
   </view>
-  <image mode="aspectFit" src="https://6c65-less-cloud-6aftw-1300147528.tcb.qcloud.la/my-image.JPG?sign=435abe401834d30bc2205c2cc1608f4f&t=1614953328"></image>
 
 </view>
