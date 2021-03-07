@@ -16,8 +16,8 @@
   <!-- 上传图片 -->
   <view class="page-section page-section-spacing swiper">
     <swiper class="swiper" indicator-dots autoplay circular>
-      <swiper-item class="swiper-item" wx:for="{{shareImgList}}" wx:for-item="item" wx:key="{{item.imagePath}}">
-        <image  class="swiper-item-img"  mode="aspectFill" src="{{item.fileID}}" />
+      <swiper-item class="swiper-item" wx:for="{{shareImgList}}" wx:for-item="item" wx:key="index">
+        <image  class="swiper-item-img"  mode="widthFix" src="{{item.imagePath}}" />
       </swiper-item>
     </swiper>
   </view>

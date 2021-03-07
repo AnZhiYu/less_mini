@@ -148,11 +148,11 @@
   align-self: center;
 }
 
-button {
+.login-button {
   font-size: 30rpx;
 }
 
-button.userinfo {
+.login-button.userinfo {
   background: darkturquoise;
   color: aliceblue;
   padding: 0 100rpx;
