@@ -3,7 +3,7 @@ page {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-//border:1px soild red 
+  /* border:1px soild red  */
 }
 .enter {
   line-height: 30px;

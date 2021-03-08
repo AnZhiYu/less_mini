@@ -1,3 +1,4 @@
+const {getHomeDetail, getHomeList}  = require('../../service/home.js')
 Page({
   data: {
     avatarUrl: "./user-unlogin.png",
@@ -20,7 +21,31 @@ Page({
         }
       },
     });
+
+    getHomeDetail({
+      id: 1,
+    }).then(res=>{console.log(res)}).catch(err=>{
+      console.log(err)
+    })
+    console.log("22222", getHomeDetail);
+
+    // wx.request({
+    //   url: 'http://aa./aa', //仅为示例，并非真实的接口地址
+    //   data: {
+    //     x: '1',
+    //     y: '2'
+    //   },
+    //   header: {
+    //     // 'content-type': 'application/json' // 默认值
+    //   },
+    //   method:'GET',
+    //   success (res) {
+    //     console.log(res.data)
+    //   }
+    // })
   },
+
+  
   onGetUserInfo: function (e) {
     console.log("这是我的信息");
     if (!this.data.logged && e.detail.userInfo) {

@@ -25,7 +25,6 @@
   "sitemapLocation": "sitemap.json",
   "style": "v2",
   "useExtendedLib": {
-    "kbone": true,
     "weui": true
   }
 }
